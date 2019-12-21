@@ -60,5 +60,15 @@ public class UserServiceTest {
 		service.deleteUser(user);
 		verify(repository, times(1)).delete(user);
 	}
+	
+	@Test
+	void getUserTest() {
+		
+	}
+	
+	@Test
+	void updateUserTest() {
+		
+	}
 
 }

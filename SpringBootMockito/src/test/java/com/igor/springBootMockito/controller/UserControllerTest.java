@@ -89,5 +89,15 @@ public class UserControllerTest {
 		System.out.println("Result "+mvcResult.getResponse());
 		verify(repository, times(1)).delete(user);
 	}
+	
+	@Test
+	void findUserTest() {
+		
+	}
+	
+	@Test
+	void editUserTest() {
+		
+	}
 
 }
