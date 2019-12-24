@@ -39,7 +39,8 @@ public class UserService {
 		temp.setAge(user.getAge());
 		temp.setAddress(user.getAddress());
 		System.out.println("User "+temp.getName()+" was successfully updated! "+temp);
-		return repository.save(temp);
+		repository.save(temp);
+		return temp;
 	}
 
 	public List<User> getUserbyAddress(String address) {
