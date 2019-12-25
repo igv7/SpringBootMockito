@@ -19,9 +19,9 @@ public class SpringBootMockitoApplication {
 	}
 	
 	//NOT NEEDED FOR UserControllerTest, BUT NEEDED FOR UserServiceTest
-//	@Bean
-//	public UserService userService() {
-//		return new UserService();
-//	}
+	@Bean
+	public UserService userService() {
+		return new UserService();
+	}
 
 }

@@ -4,11 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -72,11 +75,12 @@ public class UserControllerTest {
 	@Test
 	void saveUserTest() throws Exception {
 		User user = new User(777, "Igor", 36, "IL");
+		repository.save(user);
 		when(repository.save(user)).thenReturn(user);
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/save")
 				.accept(MediaType.APPLICATION_JSON)).andReturn();
 		System.out.println("Result "+mvcResult.getResponse());
-		verify(repository, times(0)).save(user);
+		verify(repository, times(1)).save(user);
 		assertEquals(user, repository.save(user));
 	}
 	
@@ -91,13 +95,32 @@ public class UserControllerTest {
 	}
 	
 	@Test
-	void findUserTest() {
-		
+	void findUserTest() throws Exception {
+//		User user = new User(777, "Igor", 36, "IL");
+		User user = mock(User.class);
+		Optional<User> temp = repository.findById(user.getId());
+		when(repository.findById(user.getId())).thenReturn(temp);
+		System.out.println(user);
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/getUser/{id}", user.getId())
+				.accept(MediaType.APPLICATION_JSON)).andReturn();
+		System.out.println("Result "+mvcResult.getResponse());
+		verify(repository).findById(user.getId());
+		assertEquals(temp, repository.findById(user.getId()));
+		assertEquals(repository.findById(user.getId()).equals(temp), true);
+		verify(repository, times(3)).findById(user.getId());
 	}
 	
 	@Test
-	void editUserTest() {
-		
+	void editUserTest() throws Exception {
+//		User user = new User(777, "Igor", 36, "IL");
+		User user = mock(User.class);
+		repository.save(user);
+		when(repository.save(user)).thenReturn(user);
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/updateUser/{id}", user.getId())
+				.accept(MediaType.APPLICATION_JSON)).andReturn();
+		System.out.println("Result "+mvcResult.getResponse());
+		assertEquals(user,  repository.save(user));
+		verify(repository, times(2)).save(user);
 	}
 
 }
