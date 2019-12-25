@@ -112,8 +112,8 @@ public class UserControllerTest {
 	
 	@Test
 	void editUserTest() throws Exception {
-//		User user = new User(777, "Igor", 36, "IL");
-		User user = mock(User.class);
+		User user = new User(777, "Igor", 36, "IL");
+//		User user = mock(User.class);
 		repository.save(user);
 		when(repository.save(user)).thenReturn(user);
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/updateUser/{id}", user.getId())
