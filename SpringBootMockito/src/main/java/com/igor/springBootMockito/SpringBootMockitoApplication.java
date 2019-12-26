@@ -18,10 +18,10 @@ public class SpringBootMockitoApplication {
 		System.out.println("GO! SpringBootMockito!");
 	}
 	
-	//NOT NEEDED FOR UserControllerTest, BUT NEEDED FOR UserServiceTest
-	@Bean
-	public UserService userService() {
-		return new UserService();
-	}
+	//NOT NEEDED FOR UserControllerTest and UserControllerIntegrationTest, BUT NEEDED FOR UserServiceTest
+//	@Bean
+//	public UserService userService() {
+//		return new UserService();
+//	}
 
 }
